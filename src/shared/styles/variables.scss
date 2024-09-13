@@ -1,14 +1,14 @@
 :root {
     --color-violet: #484283;
-    --color-orange: #F14F4F;
-    --color-orange-dark: #8C2828;
-    --color-orange-white: #F8AFAF;
-    --color-white: #FFFFFF;
-    --color-gray-100: #F6F6F6;
-    --color-gray-200: #D5D5D5;
-    --color-gray-500: #B2B5BB;
-    --color-gray-600: #6D727B;
-    --color-gray-900: #444B58;
+    --color-orange: #f14f4f;
+    --color-orange-dark: #8c2828;
+    --color-orange-white: #f8afaf;
+    --color-white: #ffffff;
+    --color-gray-100: #f6f6f6;
+    --color-gray-200: #d5d5d5;
+    --color-gray-500: #b2b5bb;
+    --color-gray-600: #6d727b;
+    --color-gray-900: #444b58;
 
     --font-family-main: 'Jost', sans-serif;
 
@@ -30,9 +30,14 @@
 
     --font-size-2xl: 30px;
     --font-line-2xl: 43px;
-    --font-2xl: var(--font-size-2xl) / var(--font-line-2xl) var(--font-family-main);
+    --font-2xl: var(--font-size-2xl) / var(--font-line-2xl)
+        var(--font-family-main);
 
     --font-size-3xl: 36px;
     --font-line-3xl: 52px;
-    --font-3xl: var(--font-size-3xl) / var(--font-line-3xl) var(--font-family-main);
+    --font-3xl: var(--font-size-3xl) / var(--font-line-3xl)
+        var(--font-family-main);
+
+    --container-max-width: 1200px;
+    --container-padding: 0 10px;
 }

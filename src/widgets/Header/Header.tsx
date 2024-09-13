@@ -1,9 +1,12 @@
+import { Container } from '~/shared/ui/Container/Container';
 import styles from './Header.module.scss';
 
 export function Header() {
     return (
         <header className={styles.header}>
-            <p>test</p>
+            <Container>
+                <p>test</p>
+            </Container>
         </header>
     );
 }
