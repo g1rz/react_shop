@@ -1,4 +1,16 @@
 .footer {
+    padding: 23px 0;
     background: var(--color-gray-900);
     color: var(--color-white);
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu {
+    display: flex;
+    gap: 40px;
 }
