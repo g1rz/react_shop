@@ -1,6 +1,7 @@
 // import styles from './MainPage.module.scss';
 
 import { Helmet } from 'react-helmet';
+import { Hero } from '~/widgets/Hero';
 
 export function MainPage() {
     return (
@@ -8,12 +9,13 @@ export function MainPage() {
             <Helmet>
                 <title>Catalog | Goods4you</title>
             </Helmet>
-            <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Molestiae deleniti dolores voluptas dolorum, sit, quae at
-                accusantium velit soluta totam, commodi architecto repellat
-                animi neque dolore enim quas ea nulla.
-            </p>
+            <Hero
+                title="Any products from famous brands with worldwide delivery"
+                text="We&nbsp;sell smartphones, laptops, clothes, shoes and many other products at&nbsp;low prices"
+                btnText="Go to shopping"
+                btnLink="/#catalog"
+                background="Goods4you"
+            />
         </>
     );
 }
