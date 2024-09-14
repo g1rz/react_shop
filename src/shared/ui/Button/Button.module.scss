@@ -27,3 +27,12 @@
         background: var(--button-background-disable);
     }
 }
+
+.onlyIcon {
+    padding: 16px;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+}
