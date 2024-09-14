@@ -1,0 +1,13 @@
+@mixin with-transition(
+    $properties,
+    $duration: 0.2s,
+    $timing-function: ease-in-out
+) {
+    transition-duration: $duration;
+    transition-property: $properties;
+    transition-timing-function: $timing-function;
+}
+
+@mixin transition($properties...) {
+    @include with-transition($properties);
+}

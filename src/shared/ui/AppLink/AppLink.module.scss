@@ -1,0 +1,31 @@
+@import '~/shared/styles/mixins.scss';
+
+.link {
+    --link-color: var(--color-gray-500);
+    --link-color-hover: var(--color-gray-900);
+    --link-font-weight: 400;
+
+    color: var(--link-color);
+    text-decoration: none;
+    font-size: var(--font-size-s);
+    line-height: var(--font-line-s);
+    font-weight: var(--link-font-weight);
+    border-bottom: 1px solid transparent;
+    @include transition(color, border-color);
+
+    &:hover {
+        color: var(--link-color-hover);
+        border-bottom-color: currentColor;
+    }
+
+    &.gray {
+        --link-color: var(--color-gray-500);
+        --link-color-hover: var(--color-gray-200);
+    }
+
+    &.white {
+        --link-color: var(--color-white);
+        --link-color-hover: var(--color-gray-200);
+        --link-font-weight: 600;
+    }
+}
