@@ -8,7 +8,7 @@ type Props = {
     to: string;
 };
 
-export default function CartButton({ children, to }: Props) {
+export function CartButton({ children, to }: Props) {
     return (
         <AppLink to={to} type={'white'} className={styles.cart}>
             {children}
