@@ -1,0 +1,16 @@
+.header {
+    background: var(--color-violet);
+    color: var(--color-white);
+    padding: 23px 0;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu {
+    display: flex;
+    gap: 40px;
+}
