@@ -1,0 +1,29 @@
+@import '~/shared/styles/mixins.scss';
+
+.button {
+    --button-color: var(--color-white);
+    --button-background: var(--color-orange);
+    --button-background-hover: var(--color-orange-dark);
+    --button-background-disable: var(--color-orange-white);
+
+    display: inline-flex;
+    padding: 20px 50px;
+    border-radius: 4px;
+    background: var(--button-background);
+    color: var(--button-color);
+    font-size: var(--font-size-m);
+    line-height: var(--font-line-m);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    @include transition(color, background);
+
+    &:hover {
+        background: var(--button-background-hover);
+    }
+
+    &:disabled,
+    &.disabled {
+        background: var(--button-background-disable);
+    }
+}
