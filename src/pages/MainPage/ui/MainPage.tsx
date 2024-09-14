@@ -1,6 +1,7 @@
 // import styles from './MainPage.module.scss';
 
 import { Helmet } from 'react-helmet';
+import { Catalog } from '~/widgets/Catalog';
 import { Hero } from '~/widgets/Hero';
 
 export function MainPage() {
@@ -16,6 +17,7 @@ export function MainPage() {
                 btnLink="/#catalog"
                 background="Goods4you"
             />
+            <Catalog />
         </>
     );
 }
