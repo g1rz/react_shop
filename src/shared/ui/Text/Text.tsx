@@ -20,8 +20,6 @@ export function Text<T extends React.ElementType = 'p'>({
     size = 's',
 }: Props<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof Props<T>>) {
     const Tag = as || 'p';
-    const sizeSelector = `size_${size}`;
-    console.log(sizeSelector);
 
     return (
         <Tag
