@@ -1,12 +1,9 @@
-import { Button, Container, TextField } from '~/shared/ui';
-import { Text } from '~/shared/ui';
-import { ProductCard } from '~/entities/Product';
-
-import styles from './Catalog.module.scss';
 import { useState } from 'react';
+import { Button, Container, TextField, Text } from '~/shared/ui';
+import { ProductCard } from '~/entities/Product';
 import { AddedControl } from '~/features/AddedControl';
 
-type Props = {};
+import styles from './Catalog.module.scss';
 
 const mockProducts = [
     {
@@ -95,11 +92,11 @@ const mockProducts = [
     },
 ];
 
-export function Catalog({}: Props) {
+export function Catalog() {
     const [search, setSearch] = useState('');
 
     return (
-        <div className={styles.catalog} id="catalog">
+        <section className={styles.catalog} id="catalog">
             <Container>
                 <div className={styles.catalogInner}>
                     <Text
@@ -144,6 +141,6 @@ export function Catalog({}: Props) {
                     </div>
                 </div>
             </Container>
-        </div>
+        </section>
     );
 }
