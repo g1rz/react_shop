@@ -28,4 +28,17 @@
         --link-color-hover: var(--color-gray-200);
         --link-font-weight: 600;
     }
+
+    &.currentColor {
+        --link-color: currentColor;
+        --link-color-hover: currentColor;
+    }
+}
+
+.btn {
+    background: none;
+    border: none;
+    border-bottom: 1px solid transparent;
+    padding: 0;
+    cursor: pointer;
 }
