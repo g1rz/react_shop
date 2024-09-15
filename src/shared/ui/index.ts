@@ -5,3 +5,4 @@ export { AppLink } from './AppLink/AppLink';
 export { Text } from './Text/Text';
 export { Button } from './Button/Button';
 export { TextField } from './TextField/TextField';
+export { Rating } from './Rating/Rating';
