@@ -2,17 +2,23 @@
     padding: 48px 0;
 }
 
-.title {
-    margin-bottom: 48px;
-    color: var(--color-gray-900);
+.catalogInner {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
 }
 
-.search {
-    margin-bottom: 48px;
+.title {
+    color: var(--color-gray-900);
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px 35px;
+}
+
+.showMore {
+    display: flex;
+    justify-content: center;
 }
