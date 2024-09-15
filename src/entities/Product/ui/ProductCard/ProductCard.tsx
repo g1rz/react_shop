@@ -60,7 +60,7 @@ export function ProductCard({
                             onCountChange: handleCountChange,
                         })
                     ) : (
-                        <Button onlyIcon>
+                        <Button onlyIcon aria-label="add to cart product">
                             <IconCart />
                         </Button>
                     )}

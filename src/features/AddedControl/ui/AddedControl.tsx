@@ -48,6 +48,7 @@ export function AddedControl({
                 onClick={handleDecrement}
                 onlyIcon
                 disabled={count <= minCount}
+                aria-label="minus product"
             >
                 <IconMinus />
             </Button>
@@ -58,6 +59,7 @@ export function AddedControl({
                 onClick={handleIncrement}
                 onlyIcon
                 disabled={count >= maxCount}
+                aria-label="plus product"
             >
                 <IconPlus />
             </Button>

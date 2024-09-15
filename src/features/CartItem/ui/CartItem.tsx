@@ -44,7 +44,7 @@ export function CartItem({
             </div>
             <div className={styles.right}>
                 {isDeleted ? (
-                    <Button onlyIcon>
+                    <Button onlyIcon aria-label="add to cart product">
                         <IconCart />
                     </Button>
                 ) : (

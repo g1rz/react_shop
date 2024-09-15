@@ -22,6 +22,7 @@ export function Button({
     type = 'button',
     disabled,
     onlyIcon,
+    ...props
 }: Props) {
     const addClass = clsx([
         styles.button,
@@ -31,7 +32,7 @@ export function Button({
 
     if (to) {
         return (
-            <Link to={to} className={addClass}>
+            <Link to={to} className={addClass} {...props}>
                 {children}
             </Link>
         );
@@ -43,6 +44,7 @@ export function Button({
             className={addClass}
             onClick={onClick}
             disabled={disabled}
+            {...props}
         >
             {children}
         </button>
