@@ -33,6 +33,7 @@ export function Text<T extends React.ElementType = 'p'>({
     weight = 'regular',
     color = 'currentColor',
     size = 's',
+    ...props
 }: Props<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof Props<T>>) {
     const Tag = as || 'p';
 
@@ -45,6 +46,7 @@ export function Text<T extends React.ElementType = 'p'>({
                 className,
             ])}
             onClick={onClick}
+            {...props}
         >
             {children}
         </Tag>
