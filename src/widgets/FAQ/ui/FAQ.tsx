@@ -22,7 +22,7 @@ const mockFAQs = [
 
 export function FAQ() {
     return (
-        <section className={styles.faq} id="#faq">
+        <section className={styles.faq} id="faq">
             <Container width={'min'}>
                 <Text
                     as={'h2'}
