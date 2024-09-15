@@ -2,6 +2,7 @@
 
 import { Helmet } from 'react-helmet';
 import { Catalog } from '~/widgets/Catalog';
+import { FAQ } from '~/widgets/FAQ';
 import { Hero } from '~/widgets/Hero';
 
 export function MainPage() {
@@ -18,6 +19,7 @@ export function MainPage() {
                 background="Goods4you"
             />
             <Catalog />
+            <FAQ />
         </>
     );
 }
