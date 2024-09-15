@@ -5,8 +5,11 @@
     display: block;
     border: 1px solid var(--color-gray-200);
     border-radius: 6px;
+    @include transition(filter);
 
     &:hover {
+        filter: drop-shadow(0px 6px 10px rgba(0, 0, 0, 0.25));
+
         .header {
             &::before {
                 opacity: 0.5;

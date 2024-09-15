@@ -1,9 +1,13 @@
 import { Button, Text } from '~/shared/ui';
 import styles from './ProductCard.module.scss';
 import { Link } from 'react-router-dom';
-import { type Product } from '../../model/types';
+import { IconCart } from '~/shared/ui/Icons';
 
-type Props = Product & {
+type Props = {
+    id: number;
+    preview: string;
+    title: string;
+    price: string;
     count?: number;
     isAdded?: boolean;
     initialCount?: number;
@@ -22,7 +26,7 @@ export function ProductCard({
     isAdded,
     renderControl,
     onCountChange,
-    initialCount = 0,
+    initialCount = 1,
 }: Props) {
     const handleCountChange = (count: number) => {
         if (onCountChange) {
@@ -57,7 +61,7 @@ export function ProductCard({
                         })
                     ) : (
                         <Button onlyIcon>
-                            <svg></svg>
+                            <IconCart />
                         </Button>
                     )}
                 </div>
