@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button, Text } from '~/shared/ui';
 
 import styles from './AddedControl.module.scss';
+import { IconMinus, IconPlus } from '~/shared/ui/Icons';
 
 type Props = {
     initialCount?: number;
@@ -48,7 +49,7 @@ export function AddedControl({
                 onlyIcon
                 disabled={count <= minCount}
             >
-                -
+                <IconMinus />
             </Button>
             <Text as={'span'} size={'s'} className={styles.count}>
                 {count} item
@@ -58,7 +59,7 @@ export function AddedControl({
                 onlyIcon
                 disabled={count >= maxCount}
             >
-                +
+                <IconPlus />
             </Button>
         </div>
     );
