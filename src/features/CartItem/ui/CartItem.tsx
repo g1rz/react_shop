@@ -34,6 +34,7 @@ export function CartItem({
                         size="m"
                         weight="semibold"
                         type="currentColor"
+                        className={styles.title}
                     >
                         {title}
                     </Text>

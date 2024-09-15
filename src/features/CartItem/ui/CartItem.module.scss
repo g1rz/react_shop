@@ -1,3 +1,5 @@
+@import '~/shared/styles/mixins.scss';
+
 .card {
     display: flex;
     padding: 12px;
@@ -9,6 +11,20 @@
     &:hover {
         background: var(--color-gray-100);
     }
+
+    @include mobile {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}
+
+.title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    overflow: hidden;
 }
 
 .left {
@@ -42,6 +58,13 @@
     gap: 48px;
     flex-shrink: 0;
     padding-right: 12px;
+
+    @include mobile {
+        gap: 20px;
+        width: 100%;
+        padding: 0;
+        justify-content: space-between;
+    }
 }
 
 .deleted {
