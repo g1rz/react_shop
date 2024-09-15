@@ -1,6 +1,6 @@
 // import styles from './MainPage.module.scss';
 
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { Catalog } from '~/widgets/Catalog';
 import { FAQ } from '~/widgets/FAQ';
 import { Hero } from '~/widgets/Hero';
