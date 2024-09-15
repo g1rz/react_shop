@@ -4,9 +4,12 @@ import { RouterProvider } from 'react-router-dom';
 
 import '~/shared/styles/index.scss';
 import { appRouter } from './appRouter';
+import { HelmetProvider } from 'react-helmet-async';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <RouterProvider router={appRouter()} />
+        <HelmetProvider>
+            <RouterProvider router={appRouter()} />
+        </HelmetProvider>
     </StrictMode>,
 );
