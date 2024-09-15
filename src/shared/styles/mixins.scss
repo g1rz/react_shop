@@ -20,6 +20,12 @@
     }
 }
 
+@mixin desktop {
+    @include with-breakpoint($breakpoint-desktop) {
+        @content;
+    }
+}
+
 @mixin mobile {
     @include with-breakpoint($breakpoint-mobile) {
         @content;
