@@ -4,3 +4,7 @@
     margin: 0 auto;
     padding: var(--container-padding);
 }
+
+.min {
+    max-width: var(--container-max-width-min);
+}
