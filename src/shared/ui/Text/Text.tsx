@@ -12,7 +12,8 @@ type Colors =
     | 'gray200'
     | 'gray500'
     | 'gray600'
-    | 'gray900';
+    | 'gray900'
+    | 'currentColor';
 
 type Props<T extends ElementType> = {
     as?: T;
@@ -30,7 +31,7 @@ export function Text<T extends React.ElementType = 'p'>({
     className,
     onClick,
     weight = 'regular',
-    color = 'gray900',
+    color = 'currentColor',
     size = 's',
 }: Props<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof Props<T>>) {
     const Tag = as || 'p';
