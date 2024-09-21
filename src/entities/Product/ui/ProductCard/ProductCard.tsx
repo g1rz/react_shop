@@ -2,32 +2,18 @@ import { Button, Text } from '~/shared/ui';
 import styles from './ProductCard.module.scss';
 import { Link } from 'react-router-dom';
 import { IconCart } from '~/shared/ui/Icons';
-
-type Props = {
-    id: number;
-    preview: string;
-    title: string;
-    price: string;
-    count?: number;
-    isAdded?: boolean;
-    initialCount?: number;
-    onCountChange?: (productId: number, count: number) => void;
-    renderControl?: (props: {
-        initialCount: number;
-        onCountChange: (count: number) => void;
-    }) => React.ReactNode;
-};
+import { ProductCardProps } from '../../model/types';
 
 export function ProductCard({
     id,
-    preview,
+    thumbnail,
     title,
     price,
     isAdded,
     renderControl,
     onCountChange,
     initialCount = 1,
-}: Props) {
+}: ProductCardProps) {
     const handleCountChange = (count: number) => {
         if (onCountChange) {
             onCountChange(id, count);
@@ -37,7 +23,7 @@ export function ProductCard({
     return (
         <article className={styles.card}>
             <div className={styles.header} data-link="Show details">
-                <img className={styles.image} src={preview} alt={title} />
+                <img className={styles.image} src={thumbnail} alt={title} />
             </div>
             <div className={styles.body}>
                 <div className={styles.left}>
@@ -49,7 +35,7 @@ export function ProductCard({
                         {title}
                     </Text>
                     <Text className={styles.price} size={'l'}>
-                        {price}
+                        ${price}
                     </Text>
                 </div>
                 <div className={styles.right}>
