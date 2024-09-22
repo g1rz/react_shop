@@ -11,7 +11,7 @@ export function Rating({ value, maxValue = 5 }: Props) {
     const stars = Array.from({ length: maxValue }, (_, index) => (
         <IconStar
             key={index}
-            className={index < value ? styles.filled : styles.empty}
+            className={index < Math.round(value) ? styles.filled : styles.empty}
         />
     ));
 
