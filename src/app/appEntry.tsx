@@ -7,13 +7,16 @@ import { HelmetProvider } from 'react-helmet-async';
 import '~/shared/styles/index.scss';
 import { appRouter } from './appRouter';
 import { store } from './appStore';
+import { CartProvider } from './providers/CartProviders';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
         <ReduxProvider store={store}>
-            <HelmetProvider>
-                <RouterProvider router={appRouter()} />
-            </HelmetProvider>
+            <CartProvider>
+                <HelmetProvider>
+                    <RouterProvider router={appRouter()} />
+                </HelmetProvider>
+            </CartProvider>
         </ReduxProvider>
     </StrictMode>,
 );
