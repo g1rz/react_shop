@@ -7,6 +7,13 @@ import 'swiper/css';
 import 'swiper/css/thumbs';
 import { useEffect, useRef, useState } from 'react';
 import { Thumbs } from 'swiper/modules';
+import { useSelector } from 'react-redux';
+import { RootState } from '~/app/appStore';
+import {
+    selectIsProductInCart,
+    selectProductCountInCart,
+} from '~/features/Cart';
+import { AddedControl } from '~/features/AddedControl';
 
 export function ProductDetail({ product }: { product: ProductDetailProps }) {
     const [activeThumbIndex, setActiveThumbIndex] = useState(0);
@@ -15,6 +22,14 @@ export function ProductDetail({ product }: { product: ProductDetailProps }) {
     const price = product.discountPercentage
         ? product.price - (product.price * product.discountPercentage) / 100
         : product.price;
+
+    const isProductInCart = useSelector((state: RootState) =>
+        selectIsProductInCart(state, product.id),
+    );
+
+    const productInCart = useSelector((state: RootState) =>
+        selectProductCountInCart(state, product.id),
+    );
 
     useEffect(() => {
         if (thumbsSwiper.current) {
@@ -137,7 +152,10 @@ export function ProductDetail({ product }: { product: ProductDetailProps }) {
                                     </div>
                                 )}
                             </div>
-                            <Button>Add to cart</Button>
+                            {isProductInCart && (
+                                <AddedControl initialCount={productInCart} />
+                            )}
+                            {!isProductInCart && <Button>Add to cart</Button>}
                         </div>
                     </div>
                 </div>
