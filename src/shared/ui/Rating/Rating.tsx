@@ -2,7 +2,7 @@ import { IconStar } from '~/shared/ui/Icons';
 
 import styles from './Rating.module.scss';
 
-type Props = {
+export type Props = {
     value: number;
     maxValue?: number;
 };
