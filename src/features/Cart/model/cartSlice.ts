@@ -47,15 +47,13 @@ const cartSlice = createSlice({
     },
 });
 
-export const selectCartItems = (state: RootState) =>
-    state.cart.currentCart?.products;
+export const selectCart = (state: RootState) => state.cart.currentCart;
 export const selectCartTotalQuantity = (state: RootState) =>
     state.cart.currentCart?.totalQuantity;
 export const selectIsProductInCart = (state: RootState, productId: number) => {
     const cartItems = state.cart.currentCart?.products || [];
     return cartItems.some((item) => item.id === productId);
 };
-
 export const selectProductCountInCart = (
     state: RootState,
     productId: number,
