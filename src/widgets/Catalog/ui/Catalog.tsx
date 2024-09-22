@@ -33,7 +33,7 @@ export function Catalog() {
             debounce((value: string) => {
                 setAllProducts([]);
                 setSearchQuery(value);
-                setSkip(0); // Сбрасываем skip при новом поиске
+                setSkip(0);
             }, 300),
         [],
     );

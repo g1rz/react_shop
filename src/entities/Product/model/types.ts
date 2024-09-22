@@ -8,11 +8,11 @@ export type Product = {
     images?: string[];
     rating?: number;
     discountPercentage?: number;
-    warrantyInformation: string;
-    shippingInformation: string;
-    stock: number;
-    description: string;
-    tags: string[];
+    warrantyInformation?: string;
+    shippingInformation?: string;
+    stock?: number;
+    description?: string;
+    tags?: string[];
 };
 
 export type ProductCardProps = Product & {
