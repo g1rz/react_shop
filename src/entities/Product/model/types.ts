@@ -7,6 +7,12 @@ export type Product = {
     price: number;
     images?: string[];
     rating?: number;
+    discountPercentage?: number;
+    warrantyInformation: string;
+    shippingInformation: string;
+    stock: number;
+    description: string;
+    tags: string[];
 };
 
 export type ProductCardProps = Product & {
@@ -20,15 +26,14 @@ export type ProductCardProps = Product & {
     }) => ReactNode;
 };
 
+export type ProductDetailProps = Product & ProductCardProps;
+
 export type GetProducts = {
     search?: string;
     limit?: number;
     skip?: number;
 };
 
-export interface GetProductsResponse {
+export type GetProductsResponse = GetProducts & {
     products: Product[];
-    limit: number;
-    skip: number;
-    total: number;
-}
+};

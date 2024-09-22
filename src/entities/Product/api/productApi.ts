@@ -1,5 +1,9 @@
 import { baseApi } from '~/shared/api/baseApi';
-import { GetProducts, GetProductsResponse } from '../model/types';
+import {
+    GetProducts,
+    GetProductsResponse,
+    ProductDetailProps,
+} from '../model/types';
 
 export const productApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -15,7 +19,10 @@ export const productApi = baseApi.injectEndpoints({
                 return `/products/search?${queryParams.toString()}`;
             },
         }),
+        getProduct: builder.query<ProductDetailProps, number>({
+            query: (id: number) => `/products/${id}`,
+        }),
     }),
 });
 
-export const { useGetProductsQuery } = productApi;
+export const { useGetProductsQuery, useGetProductQuery } = productApi;
