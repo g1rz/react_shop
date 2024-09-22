@@ -22,6 +22,7 @@ type Props<T extends ElementType> = {
     size?: Size;
     weight?: FontWeight;
     color?: Colors;
+    align?: 'left' | 'center' | 'right';
     onClick?: () => void;
 };
 
@@ -33,6 +34,7 @@ export function Text<T extends React.ElementType = 'p'>({
     weight = 'regular',
     color = 'currentColor',
     size = 's',
+    align = 'left',
     ...props
 }: Props<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof Props<T>>) {
     const Tag = as || 'p';
@@ -43,6 +45,7 @@ export function Text<T extends React.ElementType = 'p'>({
                 styles[`size_${size}`],
                 styles[weight],
                 styles[color as string],
+                styles[align],
                 className,
             ])}
             onClick={onClick}
