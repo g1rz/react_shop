@@ -1,9 +1,8 @@
 import { StoryFn, Meta } from '@storybook/react';
 import { Text, TextProps } from './Text';
-import { ElementType } from 'react';
 
 export default {
-    title: 'Shared/Text',
+    title: 'Atoms/Text',
     component: Text,
     argTypes: {
         size: {
