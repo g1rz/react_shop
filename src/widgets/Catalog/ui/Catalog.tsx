@@ -84,25 +84,28 @@ export function Catalog() {
                         {!isLoading &&
                             data &&
                             allProducts.map(
-                                ({ id, thumbnail, title, price }) => (
-                                    <ProductCard
-                                        key={id}
-                                        id={id}
-                                        thumbnail={thumbnail}
-                                        title={title}
-                                        price={price}
-                                        // isAdded={isAdded}
-                                        renderControl={({
-                                            initialCount,
-                                            onCountChange,
-                                        }) => (
-                                            <AddedControl
-                                                initialCount={initialCount}
-                                                onCountChange={onCountChange}
-                                            />
-                                        )}
-                                    />
-                                ),
+                                ({ id, thumbnail, title, price }) => {
+                                    return (
+                                        <ProductCard
+                                            key={id}
+                                            id={id}
+                                            thumbnail={thumbnail}
+                                            title={title}
+                                            price={price}
+                                            renderControl={({
+                                                initialCount,
+                                                onCountChange,
+                                            }) => (
+                                                <AddedControl
+                                                    initialCount={initialCount}
+                                                    onCountChange={
+                                                        onCountChange
+                                                    }
+                                                />
+                                            )}
+                                        />
+                                    );
+                                },
                             )}
                     </div>
                     {hasMore && (

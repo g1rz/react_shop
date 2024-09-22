@@ -3,22 +3,32 @@ import styles from './ProductCard.module.scss';
 import { Link } from 'react-router-dom';
 import { IconCart } from '~/shared/ui/Icons';
 import { ProductCardProps } from '../../model/types';
+import { useSelector } from 'react-redux';
+import { RootState } from '~/app/appStore';
+import {
+    selectIsProductInCart,
+    selectProductCountInCart,
+} from '~/features/Cart';
 
 export function ProductCard({
     id,
     thumbnail,
     title,
     price,
-    isAdded,
     renderControl,
     onCountChange,
-    initialCount = 1,
 }: ProductCardProps) {
     const handleCountChange = (count: number) => {
         if (onCountChange) {
             onCountChange(id, count);
         }
     };
+    const isAdded = useSelector((state: RootState) =>
+        selectIsProductInCart(state, id),
+    );
+    const initialCount = useSelector((state: RootState) =>
+        selectProductCountInCart(state, id),
+    );
 
     return (
         <article className={styles.card}>
