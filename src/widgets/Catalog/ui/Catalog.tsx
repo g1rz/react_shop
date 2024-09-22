@@ -82,6 +82,7 @@ export function Catalog() {
                     <div className={styles.grid}>
                         {isLoading && skeletonList}
                         {!isLoading &&
+                            !error &&
                             data &&
                             allProducts.map(
                                 ({ id, thumbnail, title, price }) => {
@@ -107,6 +108,11 @@ export function Catalog() {
                                     );
                                 },
                             )}
+                        {error && (
+                            <Text align="center" color="orange" size="2xl">
+                                Error receiving goods
+                            </Text>
+                        )}
                     </div>
                     {hasMore && (
                         <div className={styles.showMore}>
