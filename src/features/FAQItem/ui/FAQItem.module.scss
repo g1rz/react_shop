@@ -1,0 +1,34 @@
+@import '~/shared/styles/mixins.scss';
+
+.item {
+    padding: 20px 0;
+    border-top: 1px solid currentColor;
+
+    &:last-child {
+        border-bottom: 1px solid currentColor;
+    }
+}
+
+.question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.icon {
+    flex-shrink: 0;
+    // transform: rotate(45deg);
+    @include transition(transform);
+}
+
+.answer {
+    margin-top: 28px;
+}
+
+.isOpen {
+    .icon {
+        transform: rotate(45deg);
+    }
+}

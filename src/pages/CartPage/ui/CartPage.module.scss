@@ -1,0 +1,46 @@
+@import '~/shared/styles/mixins.scss';
+
+.page {
+    padding: 48px 0;
+}
+
+.title {
+    margin-bottom: 48px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 356px;
+    gap: 48px;
+
+    @include desktop {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.productList {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px;
+    border: 1px solid var(--color-gray-500);
+    border-radius: 4px;
+    gap: 10px;
+
+    @include mobile {
+        padding: 0;
+        border: none;
+    }
+}
+
+.totalRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.totalResult {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-gray-200);
+}

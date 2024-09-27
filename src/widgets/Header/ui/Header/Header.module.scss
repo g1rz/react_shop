@@ -1,0 +1,45 @@
+@import '~/shared/styles/mixins.scss';
+
+.header {
+    position: relative;
+    background: var(--color-violet);
+    color: var(--color-white);
+    padding: 25px 0;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu {
+    display: flex;
+    gap: 40px;
+}
+
+.burger {
+    display: none;
+}
+
+@include mobile {
+    .menu {
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        top: 100%;
+        right: 0;
+        left: 0;
+        padding: 20px;
+        background: var(--color-violet);
+        gap: 10px;
+
+        &.isOpen {
+            display: inline-flex;
+        }
+    }
+
+    .burger {
+        display: inline-flex;
+    }
+}

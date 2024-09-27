@@ -1,0 +1,130 @@
+@import '~/shared/styles/mixins.scss';
+
+.productDetail {
+    display: grid;
+    grid-template-columns: 520px 1fr;
+    gap: 40px;
+
+    @include desktop {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.images {
+    width: 100%;
+}
+
+.imageWrap {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: 1px solid var(--color-gray-200);
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+.imagesWrapActive {
+    border-color: var(--color-violet);
+}
+
+.imagesMin {
+    display: flex;
+    margin-top: 20px;
+    overflow: auto;
+    width: 100%;
+    gap: 20px;
+
+    .imageWrap {
+        width: 70px;
+    }
+}
+
+.title {
+    margin-bottom: 16px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.category {
+    color: var(--color-gray-600);
+}
+
+.stock {
+    padding: 12px 0;
+    border-top: 1px solid var(--color-gray-500);
+    border-bottom: 1px solid var(--color-gray-500);
+}
+
+.contentInner {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.description {
+    line-height: 30px;
+}
+
+.other {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-gray-600);
+    gap: 12px;
+}
+
+.buy {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    border-radius: 6px;
+    background: var(--color-gray-100);
+
+    @include mobile {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+.priceContent {
+    display: flex;
+    align-items: center;
+
+    @include mobile {
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+.priceInfo {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px 0 20px;
+    border-right: 1px solid var(--color-gray-200);
+    align-items: center;
+    gap: 2px;
+
+    @include mobile {
+        border-right: none;
+    }
+}
+.discountInfo {
+    display: flex;
+    padding: 0 24px;
+    gap: 8px;
+}

@@ -1,0 +1,17 @@
+.rating {
+    display: flex;
+    gap: 4px;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.empty {
+    fill: var(--color-gray-200);
+}
+
+.filled {
+    fill: var(--color-orange);
+}
