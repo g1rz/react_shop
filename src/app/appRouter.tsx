@@ -1,4 +1,4 @@
-import { createBrowserRouter, useNavigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { baselayout } from './layout/baselayout';
 import { MainPage } from '~/pages/MainPage';
 import { NotFoundPage } from '~/pages/NotFoundPage';
@@ -6,9 +6,7 @@ import { ProductPage } from '~/pages/ProductPage';
 import { CartPage } from '~/pages/CartPage';
 import { loginlayout } from './layout/loginLayout';
 import { LoginPage } from '~/pages/LoginPage';
-import { ReactNode, useEffect } from 'react';
-import { useMeQuery } from '~/features/auth';
-import { Loader } from '~/widgets/Loader';
+import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from './appStore';
 
@@ -20,30 +18,9 @@ function AuthGuard({ children }: GuardProps) {
     const isAuthenticated = useSelector(
         (state: RootState) => state.auth.isAuthenticated,
     );
-    const navigate = useNavigate();
-    const token = localStorage.getItem('token');
-    const {
-        isLoading,
-        isError,
-        data: user,
-    } = useMeQuery(undefined, {
-        skip: !token,
-    });
 
-    useEffect(() => {
-        if (isAuthenticated) {
-            return;
-        }
-        if (!token || isError) {
-            navigate('/login');
-        }
-        if (token && user) {
-            navigate('/');
-        }
-    }, [token, isError, navigate, user, isAuthenticated]);
-
-    if (isLoading) {
-        return <Loader />;
+    if (!isAuthenticated) {
+        return <Navigate to="/login" />;
     }
 
     return children;
@@ -53,24 +30,9 @@ function LoginGuard({ children }: GuardProps) {
     const isAuthenticated = useSelector(
         (state: RootState) => state.auth.isAuthenticated,
     );
-    const navigate = useNavigate();
-    const token = localStorage.getItem('token');
-    const {
-        isLoading,
-        isError,
-        data: user,
-    } = useMeQuery(undefined, {
-        skip: !token,
-    });
 
-    useEffect(() => {
-        if (isAuthenticated || (token && user)) {
-            navigate('/');
-        }
-    }, [token, isError, navigate, user, isAuthenticated]);
-
-    if (isLoading) {
-        return <Loader />;
+    if (isAuthenticated) {
+        return <Navigate to="/" />;
     }
 
     return children;
