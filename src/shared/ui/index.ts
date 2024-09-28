@@ -7,3 +7,4 @@ export { Button } from './Button/Button';
 export { TextField } from './TextField/TextField';
 export { Rating } from './Rating/Rating';
 export { Skeleton } from './Skeleton/Skeleton';
+export { Spinner } from './Spinner/Spinner';

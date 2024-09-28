@@ -8,12 +8,18 @@ import { loginlayout } from './layout/loginLayout';
 import { LoginPage } from '~/pages/LoginPage';
 import { ReactNode, useEffect } from 'react';
 import { useMeQuery } from '~/features/auth';
+import { Loader } from '~/widgets/Loader';
+import { useSelector } from 'react-redux';
+import { RootState } from './appStore';
 
 type AuthGuardProps = {
     children: ReactNode;
 };
 
 function AuthGuard({ children }: AuthGuardProps) {
+    const isAuthenticated = useSelector(
+        (state: RootState) => state.auth.isAuthenticated,
+    );
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const {
@@ -23,17 +29,21 @@ function AuthGuard({ children }: AuthGuardProps) {
     } = useMeQuery(undefined, {
         skip: !token,
     });
+
     useEffect(() => {
+        if (isAuthenticated) {
+            return;
+        }
         if (!token || isError) {
             navigate('/login');
         }
         if (token && user) {
             navigate('/');
         }
-    }, [token, isError, navigate, user]);
+    }, [token, isError, navigate, user, isAuthenticated]);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loader />;
     }
 
     return children;
