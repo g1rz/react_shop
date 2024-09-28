@@ -12,11 +12,11 @@ import { Loader } from '~/widgets/Loader';
 import { useSelector } from 'react-redux';
 import { RootState } from './appStore';
 
-type AuthGuardProps = {
+type GuardProps = {
     children: ReactNode;
 };
 
-function AuthGuard({ children }: AuthGuardProps) {
+function AuthGuard({ children }: GuardProps) {
     const isAuthenticated = useSelector(
         (state: RootState) => state.auth.isAuthenticated,
     );
@@ -38,6 +38,33 @@ function AuthGuard({ children }: AuthGuardProps) {
             navigate('/login');
         }
         if (token && user) {
+            navigate('/');
+        }
+    }, [token, isError, navigate, user, isAuthenticated]);
+
+    if (isLoading) {
+        return <Loader />;
+    }
+
+    return children;
+}
+
+function LoginGuard({ children }: GuardProps) {
+    const isAuthenticated = useSelector(
+        (state: RootState) => state.auth.isAuthenticated,
+    );
+    const navigate = useNavigate();
+    const token = localStorage.getItem('token');
+    const {
+        isLoading,
+        isError,
+        data: user,
+    } = useMeQuery(undefined, {
+        skip: !token,
+    });
+
+    useEffect(() => {
+        if (isAuthenticated || (token && user)) {
             navigate('/');
         }
     }, [token, isError, navigate, user, isAuthenticated]);
@@ -94,9 +121,9 @@ export function appRouter() {
                 {
                     path: '/login',
                     element: (
-                        <AuthGuard>
+                        <LoginGuard>
                             <LoginPage />
-                        </AuthGuard>
+                        </LoginGuard>
                     ),
                 },
             ],
