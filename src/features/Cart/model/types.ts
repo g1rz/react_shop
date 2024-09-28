@@ -24,3 +24,7 @@ export type CartResponse = {
     skip: number;
     limit: number;
 };
+
+export type UpdateCartProps = {
+    products: { id: number; quantity: number }[];
+};
