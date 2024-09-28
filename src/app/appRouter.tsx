@@ -47,7 +47,7 @@ export function appRouter() {
                     path: '/',
                     element: (
                         <AuthGuard>
-                            <MainPage />,
+                            <MainPage />
                         </AuthGuard>
                     ),
                 },
