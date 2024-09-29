@@ -5,6 +5,7 @@ import { IconCart } from '~/shared/ui/Icons';
 import clsx from 'clsx';
 import { CartItemProps } from '../../model/types';
 import { useState } from 'react';
+import { useAddToCart } from '../../lib/useAddToCart';
 
 export function CartItem({
     id,
@@ -13,9 +14,9 @@ export function CartItem({
     price,
     quantity,
     discountPercentage,
+    isDeleted,
 }: CartItemProps) {
-    const [isDeleted, setIsDeleted] = useState(false);
-
+    const { addToCart } = useAddToCart();
     const discountedPrice = discountPercentage
         ? (price - (price * discountPercentage) / 100).toFixed(2)
         : price;
@@ -44,14 +45,22 @@ export function CartItem({
             </div>
             <div className={styles.right}>
                 {isDeleted ? (
-                    <Button onlyIcon aria-label="add to cart product">
+                    <Button
+                        onlyIcon
+                        aria-label="add to cart product"
+                        onClick={() =>
+                            addToCart({ productId: id, quantity: 1 })
+                        }
+                    >
                         <IconCart />
                     </Button>
                 ) : (
                     <>
                         <AddedControl initialCount={quantity} productId={id} />
                         <AppLink
-                            onClick={() => setIsDeleted(true)}
+                            onClick={() =>
+                                addToCart({ productId: id, quantity: 0 })
+                            }
                             className={styles.deleteLink}
                         >
                             Delete

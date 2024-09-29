@@ -6,6 +6,7 @@ export type CartItemProps = {
     discountPercentage: number;
     discountedTotal?: number;
     thumbnail: string;
+    isDeleted?: boolean;
 };
 
 export type CartProps = {
