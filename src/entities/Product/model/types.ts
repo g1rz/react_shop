@@ -22,7 +22,8 @@ export type ProductCardProps = Product & {
     onCountChange?: (productId: number, count: number) => void;
     renderControl?: (props: {
         initialCount: number | undefined;
-        onCountChange: (count: number) => void;
+        productId: number;
+        onCountChange?: (count: number) => void;
     }) => ReactNode;
 };
 

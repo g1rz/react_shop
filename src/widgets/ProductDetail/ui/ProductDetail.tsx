@@ -13,7 +13,7 @@ import {
     selectIsProductInCart,
     selectProductCountInCart,
 } from '~/features/Cart';
-import { AddedControl } from '~/features/AddedControl';
+import { AddedControl } from '~/features/Cart';
 
 export function ProductDetail({ product }: { product: ProductDetailProps }) {
     const [activeThumbIndex, setActiveThumbIndex] = useState(0);

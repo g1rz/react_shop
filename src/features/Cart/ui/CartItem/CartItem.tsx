@@ -1,4 +1,4 @@
-import { AddedControl } from '~/features/AddedControl';
+import { AddedControl } from '../AddedControl/AddedControl';
 import styles from './CartItem.module.scss';
 import { AppLink, Button, Text } from '~/shared/ui';
 import { IconCart } from '~/shared/ui/Icons';

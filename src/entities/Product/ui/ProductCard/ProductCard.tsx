@@ -10,6 +10,7 @@ import {
     selectIsProductInCart,
     selectProductCountInCart,
     updateCart,
+    useAddToCart,
 } from '~/features/Cart';
 import { unwrapResult } from '@reduxjs/toolkit';
 
@@ -20,10 +21,7 @@ export function ProductCard({
     price,
     renderControl,
 }: ProductCardProps) {
-    const dispatch: AppDispatch = useDispatch();
-    const cartProducts = useSelector((state: RootState) =>
-        selectCartProducts(state),
-    );
+    const { addToCart } = useAddToCart();
 
     const isAdded = useSelector((state: RootState) =>
         selectIsProductInCart(state, id),
@@ -31,29 +29,6 @@ export function ProductCard({
     const initialCount = useSelector((state: RootState) =>
         selectProductCountInCart(state, id),
     );
-
-    const addToCart = (quantity: number) => {
-        const products = cartProducts?.map((product) => {
-            return {
-                id: product.id,
-                quantity: product.quantity,
-            };
-        });
-        products?.push({
-            id,
-            quantity,
-        });
-
-        dispatch(
-            updateCart({
-                products: products || [],
-            }),
-        )
-            .then(unwrapResult)
-            .catch((error) => {
-                console.error('Failed to update cart', error);
-            });
-    };
 
     return (
         <article className={styles.card}>
@@ -78,13 +53,15 @@ export function ProductCard({
                         renderControl &&
                         renderControl({
                             initialCount,
-                            onCountChange: (count) => addToCart(count),
+                            productId: id,
                         })
                     ) : (
                         <Button
                             onlyIcon
                             aria-label="add to cart product"
-                            onClick={() => addToCart(1)}
+                            onClick={() =>
+                                addToCart({ productId: id, quantity: 1 })
+                            }
                         >
                             <IconCart />
                         </Button>

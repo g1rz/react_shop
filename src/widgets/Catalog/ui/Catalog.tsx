@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce';
 
 import { Button, Container, TextField, Text, Skeleton } from '~/shared/ui';
 import { Product, ProductCard } from '~/entities/Product';
-import { AddedControl } from '~/features/AddedControl';
+import { AddedControl } from '~/features/Cart/';
 
 import styles from './Catalog.module.scss';
 import { useGetProductsQuery } from '~/entities/Product/';
@@ -99,6 +99,7 @@ export function Catalog() {
                                             }) => (
                                                 <AddedControl
                                                     initialCount={initialCount}
+                                                    productId={id}
                                                     onCountChange={
                                                         onCountChange
                                                     }

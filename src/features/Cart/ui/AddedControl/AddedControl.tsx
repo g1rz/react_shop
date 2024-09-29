@@ -5,7 +5,10 @@ import { Button, Text } from '~/shared/ui';
 import styles from './AddedControl.module.scss';
 import { IconMinus, IconPlus } from '~/shared/ui/Icons';
 
+import { useAddToCart } from '../../lib/useAddToCart';
+
 type Props = {
+    productId: number;
     initialCount?: number;
     onCountChange?: (count: number) => void;
     className?: string;
@@ -14,6 +17,7 @@ type Props = {
 };
 
 export function AddedControl({
+    productId,
     initialCount = 0,
     onCountChange,
     className,
@@ -21,11 +25,13 @@ export function AddedControl({
     maxCount = 10,
 }: Props) {
     const [count, setCount] = useState(initialCount);
+    const { addToCart } = useAddToCart();
 
     const handleIncrement = () => {
         if (count < maxCount) {
             const newCount = count + 1;
             setCount(newCount);
+            addToCart({ productId, quantity: newCount });
             if (onCountChange) {
                 onCountChange(newCount);
             }
@@ -36,6 +42,7 @@ export function AddedControl({
         if (count > minCount) {
             const newCount = count - 1;
             setCount(newCount);
+            addToCart({ productId, quantity: newCount });
             if (onCountChange) {
                 onCountChange(newCount);
             }
