@@ -1,10 +1,10 @@
+import React from 'react';
 import { AddedControl } from '../AddedControl/AddedControl';
 import styles from './CartItem.module.scss';
 import { AppLink, Button, Text } from '~/shared/ui';
 import { IconCart } from '~/shared/ui/Icons';
 import clsx from 'clsx';
 import { CartItemProps } from '../../model/types';
-import { useState } from 'react';
 import { useAddToCart } from '../../lib/useAddToCart';
 
 export function CartItem({
