@@ -8,7 +8,7 @@ export function LoginPage() {
     return (
         <>
             <Helmet>
-                <title>My cart | Goods4you</title>
+                <title>Sign in | Goods4you</title>
             </Helmet>
             <div className={styles.page}>
                 <Container>
