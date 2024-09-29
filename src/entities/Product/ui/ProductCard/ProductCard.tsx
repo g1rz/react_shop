@@ -19,7 +19,7 @@ export function ProductCard({
     renderControl,
     stock,
 }: ProductCardProps) {
-    const { addToCart } = useAddToCart();
+    const { addToCart, isLoading } = useAddToCart();
 
     const isAdded = useSelector((state: RootState) =>
         selectIsProductInCart(state, id),
@@ -58,6 +58,7 @@ export function ProductCard({
                         <Button
                             onlyIcon
                             aria-label="add to cart product"
+                            disabled={isLoading}
                             onClick={() =>
                                 addToCart({ productId: id, quantity: 1 })
                             }

@@ -25,7 +25,7 @@ export function AddedControl({
     maxCount = 10,
 }: Props) {
     const [count, setCount] = useState(initialCount);
-    const { addToCart } = useAddToCart();
+    const { addToCart, isLoading } = useAddToCart();
 
     const handleIncrement = () => {
         if (count < maxCount) {
@@ -54,7 +54,7 @@ export function AddedControl({
             <Button
                 onClick={handleDecrement}
                 onlyIcon
-                disabled={count <= minCount}
+                disabled={count <= minCount || isLoading}
                 aria-label="minus product"
             >
                 <IconMinus />
@@ -65,7 +65,7 @@ export function AddedControl({
             <Button
                 onClick={handleIncrement}
                 onlyIcon
-                disabled={count >= maxCount}
+                disabled={count >= maxCount || isLoading}
                 aria-label="plus product"
             >
                 <IconPlus />

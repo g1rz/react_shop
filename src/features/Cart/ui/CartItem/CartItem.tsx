@@ -16,7 +16,7 @@ export function CartItem({
     discountPercentage,
     isDeleted,
 }: CartItemProps) {
-    const { addToCart } = useAddToCart();
+    const { addToCart, isLoading } = useAddToCart();
     const discountedPrice = discountPercentage
         ? (price - (price * discountPercentage) / 100).toFixed(2)
         : price;
@@ -48,6 +48,7 @@ export function CartItem({
                     <Button
                         onlyIcon
                         aria-label="add to cart product"
+                        disabled={isLoading}
                         onClick={() =>
                             addToCart({ productId: id, quantity: 1 })
                         }
@@ -61,6 +62,7 @@ export function CartItem({
                             onClick={() =>
                                 addToCart({ productId: id, quantity: 0 })
                             }
+                            disabled={isLoading}
                             className={styles.deleteLink}
                         >
                             Delete

@@ -12,10 +12,18 @@ type AppLinkProps = {
     className?: string;
     type?: LinkTypes;
     onClick?: () => void;
+    disabled?: boolean;
 };
 
 export function AppLink(props: AppLinkProps) {
-    const { to, children, className, type = 'gray', onClick } = props;
+    const {
+        to,
+        children,
+        className,
+        type = 'gray',
+        onClick,
+        disabled = false,
+    } = props;
 
     if (to) {
         return (
@@ -32,6 +40,7 @@ export function AppLink(props: AppLinkProps) {
         <button
             className={clsx([styles.link, styles.btn, className, styles[type]])}
             onClick={onClick}
+            disabled={disabled}
         >
             {children}
         </button>
