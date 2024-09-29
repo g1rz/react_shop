@@ -45,7 +45,6 @@ export function Catalog() {
     }, []);
 
     useEffect(() => {
-        console.log(data, error, isLoading);
         if (data) {
             setAllProducts((prevProducts) => [
                 ...prevProducts,
@@ -55,6 +54,8 @@ export function Catalog() {
                 setHasMore(
                     allProducts.length + data.products.length < data.total,
                 );
+            } else {
+                setHasMore(false);
             }
         }
     }, [data, error, isLoading]);
@@ -85,7 +86,6 @@ export function Catalog() {
                     <TextField
                         value={search}
                         onChange={(e) => handleSearch(e.target.value)}
-                        // onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search by title"
                         className={styles.search}
                     />

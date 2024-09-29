@@ -15,7 +15,6 @@ export function ProductPage() {
     const { data, error, isLoading } = useGetProductQuery(productId);
 
     useEffect(() => {
-        console.log(data, error, isLoading);
         if (data) {
             setTitle(`${data.title} | Goods4you`);
         }
