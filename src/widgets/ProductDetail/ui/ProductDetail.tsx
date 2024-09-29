@@ -12,12 +12,14 @@ import { RootState } from '~/app/appStore';
 import {
     selectIsProductInCart,
     selectProductCountInCart,
+    useAddToCart,
 } from '~/features/Cart';
 import { AddedControl } from '~/features/Cart';
 
 export function ProductDetail({ product }: { product: ProductDetailProps }) {
     const [activeThumbIndex, setActiveThumbIndex] = useState(0);
     const thumbsSwiper = useRef<SwiperClass | null>(null);
+    const { addToCart } = useAddToCart();
 
     const price = product.discountPercentage
         ? product.price - (product.price * product.discountPercentage) / 100
@@ -98,7 +100,7 @@ export function ProductDetail({ product }: { product: ProductDetailProps }) {
                         <div className={styles.row}>
                             <Rating value={product.rating || 0} />
                             <Text size="m" className={styles.category}>
-                                {product.tags.join(', ')}
+                                {product.tags?.join(', ')}
                             </Text>
                         </div>
                         <div className={styles.stock}>
@@ -153,9 +155,23 @@ export function ProductDetail({ product }: { product: ProductDetailProps }) {
                                 )}
                             </div>
                             {isProductInCart && (
-                                <AddedControl initialCount={productInCart} />
+                                <AddedControl
+                                    initialCount={productInCart}
+                                    productId={product.id}
+                                />
                             )}
-                            {!isProductInCart && <Button>Add to cart</Button>}
+                            {!isProductInCart && (
+                                <Button
+                                    onClick={() =>
+                                        addToCart({
+                                            productId: product.id,
+                                            quantity: 1,
+                                        })
+                                    }
+                                >
+                                    Add to cart
+                                </Button>
+                            )}
                         </div>
                     </div>
                 </div>

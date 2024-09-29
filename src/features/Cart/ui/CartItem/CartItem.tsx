@@ -49,7 +49,7 @@ export function CartItem({
                     </Button>
                 ) : (
                     <>
-                        <AddedControl initialCount={quantity} />
+                        <AddedControl initialCount={quantity} productId={id} />
                         <AppLink
                             onClick={() => setIsDeleted(true)}
                             className={styles.deleteLink}
