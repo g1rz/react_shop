@@ -1,11 +1,12 @@
 import { baseApi } from '~/shared/api/baseApi';
 import { GetUser, User } from '../model/types';
+import { API_PATH } from '~/shared/api';
 
 export const authApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         login: builder.mutation<User, GetUser>({
             query: ({ username, password }: GetUser) => ({
-                url: '/auth/login',
+                url: API_PATH.login(),
                 method: 'POST',
                 body: {
                     username,
@@ -15,7 +16,7 @@ export const authApi = baseApi.injectEndpoints({
         }),
         me: builder.query<User, void>({
             query: () => ({
-                url: '/auth/me',
+                url: API_PATH.me(),
                 method: 'GET',
             }),
         }),

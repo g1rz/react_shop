@@ -16,11 +16,10 @@ const initialState: CartState = {
     error: null,
 };
 
-const token = localStorage.getItem('token');
-
 export const fetchCart = createAsyncThunk(
     'cart/fetchCart',
     async (id: number) => {
+        const token = localStorage.getItem('token');
         const response = await fetch(API_PATH.cartByUser(id), {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -35,6 +34,7 @@ export const fetchCart = createAsyncThunk(
 export const updateCart = createAsyncThunk(
     'cart/updateCart',
     async ({ products }: UpdateCartProps, { getState }) => {
+        const token = localStorage.getItem('token');
         const state = getState() as RootState;
         const cartId = state.cart.currentCart?.id;
 

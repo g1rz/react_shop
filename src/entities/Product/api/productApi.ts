@@ -4,6 +4,7 @@ import {
     GetProductsResponse,
     ProductDetailProps,
 } from '../model/types';
+import { API_PATH } from '~/shared/api';
 
 export const productApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -16,11 +17,11 @@ export const productApi = baseApi.injectEndpoints({
                 queryParams.append('limit', limit.toString());
                 queryParams.append('skip', skip.toString());
 
-                return `/products/search?${queryParams.toString()}`;
+                return API_PATH.productsBySearch(queryParams.toString());
             },
         }),
         getProduct: builder.query<ProductDetailProps, number>({
-            query: (id: number) => `/products/${id}`,
+            query: (id: number) => API_PATH.productDetail(id),
         }),
     }),
 });

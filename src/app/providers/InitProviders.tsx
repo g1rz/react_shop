@@ -12,9 +12,19 @@ export function InitProvider({ children }: { children: ReactNode }) {
     );
 
     const token = localStorage.getItem('token');
-    const { isLoading, data: user } = useMeQuery(undefined, {
+    const {
+        isLoading,
+        isError,
+        data: user,
+    } = useMeQuery(undefined, {
         skip: !token,
     });
+
+    useEffect(() => {
+        if (isError) {
+            localStorage.removeItem('token');
+        }
+    }, [isError]);
 
     useEffect(() => {
         if (isAuthenticated && user) {
