@@ -71,6 +71,10 @@ export function Catalog() {
         }
     };
 
+    useEffect(() => {
+        console.log(allProducts);
+    }, [allProducts]);
+
     return (
         <section className={styles.catalog} id="catalog">
             <Container>
@@ -95,7 +99,7 @@ export function Catalog() {
                             !error &&
                             data &&
                             allProducts.map(
-                                ({ id, thumbnail, title, price }) => {
+                                ({ id, thumbnail, title, price, stock }) => {
                                     return (
                                         <ProductCard
                                             key={id}
@@ -103,9 +107,11 @@ export function Catalog() {
                                             thumbnail={thumbnail}
                                             title={title}
                                             price={price}
+                                            stock={stock}
                                             renderControl={({
                                                 initialCount,
                                                 onCountChange,
+                                                maxCount,
                                             }) => (
                                                 <AddedControl
                                                     initialCount={initialCount}
@@ -113,6 +119,7 @@ export function Catalog() {
                                                     onCountChange={
                                                         onCountChange
                                                     }
+                                                    maxCount={maxCount}
                                                 />
                                             )}
                                         />

@@ -19,10 +19,12 @@ export type ProductCardProps = Product & {
     count?: number;
     isAdded?: boolean;
     initialCount?: number;
+    stock?: number;
     onCountChange?: (productId: number, count: number) => void;
     renderControl?: (props: {
-        initialCount: number | undefined;
+        initialCount?: number;
         productId: number;
+        maxCount?: number;
         onCountChange?: (count: number) => void;
     }) => ReactNode;
 };

@@ -3,16 +3,13 @@ import styles from './ProductCard.module.scss';
 import { Link } from 'react-router-dom';
 import { IconCart } from '~/shared/ui/Icons';
 import { ProductCardProps } from '../../model/types';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '~/app/appStore';
+import { useSelector } from 'react-redux';
+import { RootState } from '~/app/appStore';
 import {
-    selectCartProducts,
     selectIsProductInCart,
     selectProductCountInCart,
-    updateCart,
     useAddToCart,
 } from '~/features/Cart';
-import { unwrapResult } from '@reduxjs/toolkit';
 
 export function ProductCard({
     id,
@@ -20,6 +17,7 @@ export function ProductCard({
     title,
     price,
     renderControl,
+    stock,
 }: ProductCardProps) {
     const { addToCart } = useAddToCart();
 
@@ -54,6 +52,7 @@ export function ProductCard({
                         renderControl({
                             initialCount,
                             productId: id,
+                            maxCount: stock,
                         })
                     ) : (
                         <Button
