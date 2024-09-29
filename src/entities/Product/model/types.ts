@@ -33,6 +33,7 @@ export type GetProducts = {
     search?: string;
     limit?: number;
     skip?: number;
+    total?: number;
 };
 
 export type GetProductsResponse = GetProducts & {

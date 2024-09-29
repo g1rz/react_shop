@@ -5,6 +5,7 @@ import { useGetProductQuery } from '~/entities/Product';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Text } from '~/shared/ui';
+import { Loader } from '~/widgets/Loader';
 
 export function ProductPage() {
     const [title, setTitle] = useState('Goods4you');
@@ -26,7 +27,7 @@ export function ProductPage() {
                 <title>{title}</title>
             </Helmet>
             <div className={styles.page}>
-                {isLoading && <p>loading</p>}
+                {isLoading && <Loader />}
                 {!isLoading && !error && data && (
                     <ProductDetail product={data} />
                 )}

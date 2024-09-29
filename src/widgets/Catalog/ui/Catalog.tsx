@@ -39,13 +39,23 @@ export function Catalog() {
     );
 
     useEffect(() => {
+        return () => {
+            setAllProducts([]);
+        };
+    }, []);
+
+    useEffect(() => {
         console.log(data, error, isLoading);
         if (data) {
             setAllProducts((prevProducts) => [
                 ...prevProducts,
                 ...data.products,
             ]);
-            setHasMore(allProducts.length + data.products.length < data.total);
+            if (data.total) {
+                setHasMore(
+                    allProducts.length + data.products.length < data.total,
+                );
+            }
         }
     }, [data, error, isLoading]);
 
