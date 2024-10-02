@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react';
 import styles from './TextField.module.scss';
 import clsx from 'clsx';
 
-type Props = {
+export type TextFieldProps = {
     value: string;
     onChange: (
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -25,7 +25,7 @@ export function TextField({
     name,
     id,
     disabled,
-}: Props) {
+}: TextFieldProps) {
     return (
         <input
             type={type}

@@ -1,3 +1,9 @@
+@import '~/shared/styles/variables';
+
+.text {
+    font-family: var(--font-family-main);
+}
+
 .size_s {
     font-size: var(--font-size-s);
     line-height: var(--font-line-s);
@@ -87,4 +93,16 @@
 
 .currentColor {
     color: currentColor;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
 }

@@ -1,6 +1,6 @@
 import { Container, Text } from '~/shared/ui';
 import styles from './FAQ.module.scss';
-import FAQItem from '~/features/FAQItem/ui/FAQItem';
+import { FAQItem } from '~/features/FAQItem';
 
 const mockFAQs = [
     {

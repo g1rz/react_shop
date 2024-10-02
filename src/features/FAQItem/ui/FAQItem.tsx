@@ -4,13 +4,13 @@ import { useState } from 'react';
 import clsx from 'clsx';
 import { IconCross } from '~/shared/ui/Icons/';
 
-type Props = {
+export type Props = {
     question: string;
     answer: string;
     isOpen?: boolean;
 };
 
-export default function FAQItem({ question, answer, isOpen }: Props) {
+export function FAQItem({ question, answer, isOpen }: Props) {
     const [isOpenState, setisOpenState] = useState(isOpen);
 
     return (

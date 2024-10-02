@@ -1,99 +1,64 @@
-import { useState } from 'react';
-import { Button, Container, TextField, Text } from '~/shared/ui';
-import { ProductCard } from '~/entities/Product';
+import { useEffect, useMemo, useState } from 'react';
+import debounce from 'lodash/debounce';
+
+import { Button, Container, TextField, Text, Skeleton } from '~/shared/ui';
+import { Product, ProductCard } from '~/entities/Product';
 import { AddedControl } from '~/features/AddedControl';
 
 import styles from './Catalog.module.scss';
-
-const mockProducts = [
-    {
-        id: 1,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: true,
-    },
-    {
-        id: 2,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-    {
-        id: 3,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-    {
-        id: 4,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-    {
-        id: 5,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-    {
-        id: 6,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-    {
-        id: 7,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-    {
-        id: 8,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-    {
-        id: 9,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-    {
-        id: 10,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-    {
-        id: 11,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-    {
-        id: 12,
-        preview: '/src/entities/product/assets/product-1.png',
-        title: 'Essence Mascara Lash Princess',
-        price: '$110',
-        isAdded: false,
-    },
-];
+import { useGetProductsQuery } from '~/entities/Product/';
 
 export function Catalog() {
     const [search, setSearch] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
+    const [skip, setSkip] = useState(0);
+    const [allProducts, setAllProducts] = useState<Product[]>([]);
+    const [hasMore, setHasMore] = useState(false);
+
+    const { data, error, isLoading } = useGetProductsQuery({
+        search: searchQuery,
+        skip,
+    });
+
+    const skeletonList = useMemo(() => {
+        return Array(12)
+            .fill(null)
+            .map((_, index) => (
+                <Skeleton key={`skeleton_${index}`} height={'367px'} />
+            ));
+    }, []);
+
+    const debouncedSearch = useMemo(
+        () =>
+            debounce((value: string) => {
+                setAllProducts([]);
+                setSearchQuery(value);
+                setSkip(0);
+            }, 300),
+        [],
+    );
+
+    useEffect(() => {
+        console.log(data, error, isLoading);
+        if (data) {
+            setAllProducts((prevProducts) => [
+                ...prevProducts,
+                ...data.products,
+            ]);
+            setHasMore(allProducts.length + data.products.length < data.total);
+        }
+    }, [data, error, isLoading]);
+
+    const handleSearch = (value: string) => {
+        setSearch(value);
+        debouncedSearch(value);
+    };
+
+    const handleShowMore = () => {
+        if (data) {
+            setSkip(skip + data.products.length);
+        }
+    };
 
     return (
         <section className={styles.catalog} id="catalog">
@@ -109,36 +74,51 @@ export function Catalog() {
                     </Text>
                     <TextField
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        // onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search by title"
                         className={styles.search}
                     />
                     <div className={styles.grid}>
-                        {mockProducts.map(
-                            ({ id, preview, title, price, isAdded }) => (
-                                <ProductCard
-                                    key={id}
-                                    id={id}
-                                    preview={preview}
-                                    title={title}
-                                    price={price}
-                                    isAdded={isAdded}
-                                    renderControl={({
-                                        initialCount,
-                                        onCountChange,
-                                    }) => (
-                                        <AddedControl
-                                            initialCount={initialCount}
-                                            onCountChange={onCountChange}
+                        {isLoading && skeletonList}
+                        {!isLoading &&
+                            !error &&
+                            data &&
+                            allProducts.map(
+                                ({ id, thumbnail, title, price }) => {
+                                    return (
+                                        <ProductCard
+                                            key={id}
+                                            id={id}
+                                            thumbnail={thumbnail}
+                                            title={title}
+                                            price={price}
+                                            renderControl={({
+                                                initialCount,
+                                                onCountChange,
+                                            }) => (
+                                                <AddedControl
+                                                    initialCount={initialCount}
+                                                    onCountChange={
+                                                        onCountChange
+                                                    }
+                                                />
+                                            )}
                                         />
-                                    )}
-                                />
-                            ),
+                                    );
+                                },
+                            )}
+                        {error && (
+                            <Text align="center" color="orange" size="2xl">
+                                Error receiving goods
+                            </Text>
                         )}
                     </div>
-                    <div className={styles.showMore}>
-                        <Button>Show more</Button>
-                    </div>
+                    {hasMore && (
+                        <div className={styles.showMore}>
+                            <Button onClick={handleShowMore}>Show more</Button>
+                        </div>
+                    )}
                 </div>
             </Container>
         </section>

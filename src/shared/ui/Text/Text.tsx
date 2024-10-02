@@ -15,13 +15,14 @@ type Colors =
     | 'gray900'
     | 'currentColor';
 
-type Props<T extends ElementType> = {
+export type TextProps<T extends ElementType> = {
     as?: T;
     children: ReactNode;
     className?: string;
-    size?: Size;
-    weight?: FontWeight;
+    size?: 's' | 'm' | 'l' | 'xl' | '2xl' | '3xl';
+    weight?: 'bold' | 'semibold' | 'regular' | 'medium';
     color?: Colors;
+    align?: 'left' | 'center' | 'right';
     onClick?: () => void;
 };
 
@@ -33,16 +34,19 @@ export function Text<T extends React.ElementType = 'p'>({
     weight = 'regular',
     color = 'currentColor',
     size = 's',
+    align = 'left',
     ...props
-}: Props<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof Props<T>>) {
+}: TextProps<T> & Omit<React.ComponentPropsWithoutRef<T>, keyof TextProps<T>>) {
     const Tag = as || 'p';
 
     return (
         <Tag
             className={clsx([
+                styles.text,
                 styles[`size_${size}`],
                 styles[weight],
                 styles[color as string],
+                styles[align],
                 className,
             ])}
             onClick={onClick}

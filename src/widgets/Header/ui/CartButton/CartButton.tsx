@@ -6,17 +6,19 @@ import { IconCart } from '~/shared/ui/Icons';
 type Props = {
     textButton: string;
     to: string;
-    count: number;
+    count: number | undefined;
 };
 
 export function CartButton({ textButton, to, count }: Props) {
-    const visibleCount = count >= 99 ? '99+' : '100';
+    const visibleCount = count && count >= 99 ? '99+' : count;
     return (
         <AppLink to={to} type={'white'} className={styles.cart}>
             {textButton}
             <span className={styles.icon}>
                 <IconCart />
-                <span className={styles.count}>{visibleCount}</span>
+                {visibleCount && (
+                    <span className={styles.count}>{visibleCount}</span>
+                )}
             </span>
         </AppLink>
     );

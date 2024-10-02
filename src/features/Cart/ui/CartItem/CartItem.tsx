@@ -3,29 +3,28 @@ import styles from './CartItem.module.scss';
 import { AppLink, Button, Text } from '~/shared/ui';
 import { IconCart } from '~/shared/ui/Icons';
 import clsx from 'clsx';
-
-type Props = {
-    id: number;
-    title: string;
-    preview: string;
-    price: string;
-    count: number;
-    isDeleted: boolean;
-};
+import { CartItemProps } from '../../model/types';
+import { useState } from 'react';
 
 export function CartItem({
     id,
     title,
-    preview,
+    thumbnail,
     price,
-    count,
-    isDeleted,
-}: Props) {
+    quantity,
+    discountPercentage,
+}: CartItemProps) {
+    const [isDeleted, setIsDeleted] = useState(false);
+
+    const discountedPrice = discountPercentage
+        ? (price - (price * discountPercentage) / 100).toFixed(2)
+        : price;
+
     return (
         <div className={clsx([styles.card, isDeleted && styles.deleted])}>
             <div className={styles.left}>
                 <div className={styles.preview}>
-                    <img src={preview} alt={title} />
+                    <img src={thumbnail} alt={title} />
                 </div>
                 <div className={styles.content}>
                     <Text
@@ -39,7 +38,7 @@ export function CartItem({
                         {title}
                     </Text>
                     <Text as="span" size="l">
-                        {price}
+                        ${discountedPrice}
                     </Text>
                 </div>
             </div>
@@ -50,8 +49,13 @@ export function CartItem({
                     </Button>
                 ) : (
                     <>
-                        <AddedControl initialCount={count} />
-                        <AppLink className={styles.deleteLink}>Delete</AppLink>
+                        <AddedControl initialCount={quantity} />
+                        <AppLink
+                            onClick={() => setIsDeleted(true)}
+                            className={styles.deleteLink}
+                        >
+                            Delete
+                        </AppLink>
                     </>
                 )}
             </div>

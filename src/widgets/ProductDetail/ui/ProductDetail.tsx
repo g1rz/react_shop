@@ -1,63 +1,89 @@
 import { Button, Container, Rating, Text } from '~/shared/ui';
 import styles from './ProductDetail.module.scss';
 import clsx from 'clsx';
+import { ProductDetailProps } from '~/entities/Product/model/types';
+import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/thumbs';
+import { useEffect, useRef, useState } from 'react';
+import { Thumbs } from 'swiper/modules';
+import { useSelector } from 'react-redux';
+import { RootState } from '~/app/appStore';
+import {
+    selectIsProductInCart,
+    selectProductCountInCart,
+} from '~/features/Cart';
+import { AddedControl } from '~/features/AddedControl';
 
-const mockImages = [
-    {
-        imageBig: '/src/widgets/ProductDetail/assets/product-1.png',
-        imageMin: '/src/widgets/ProductDetail/assets/product-1-min.png',
-    },
-    {
-        imageBig: '/src/widgets/ProductDetail/assets/product-1.png',
-        imageMin: '/src/widgets/ProductDetail/assets/product-1-min.png',
-    },
-    {
-        imageBig: '/src/widgets/ProductDetail/assets/product-1.png',
-        imageMin: '/src/widgets/ProductDetail/assets/product-1-min.png',
-    },
-    {
-        imageBig: '/src/widgets/ProductDetail/assets/product-1.png',
-        imageMin: '/src/widgets/ProductDetail/assets/product-1-min.png',
-    },
-    {
-        imageBig: '/src/widgets/ProductDetail/assets/product-1.png',
-        imageMin: '/src/widgets/ProductDetail/assets/product-1-min.png',
-    },
-    {
-        imageBig: '/src/widgets/ProductDetail/assets/product-1.png',
-        imageMin: '/src/widgets/ProductDetail/assets/product-1-min.png',
-    },
-];
+export function ProductDetail({ product }: { product: ProductDetailProps }) {
+    const [activeThumbIndex, setActiveThumbIndex] = useState(0);
+    const thumbsSwiper = useRef<SwiperClass | null>(null);
 
-export function ProductDetail() {
-    const tempName = 'Essence Mascara Lash Princess';
+    const price = product.discountPercentage
+        ? product.price - (product.price * product.discountPercentage) / 100
+        : product.price;
+
+    const isProductInCart = useSelector((state: RootState) =>
+        selectIsProductInCart(state, product.id),
+    );
+
+    const productInCart = useSelector((state: RootState) =>
+        selectProductCountInCart(state, product.id),
+    );
+
+    useEffect(() => {
+        if (thumbsSwiper.current) {
+            thumbsSwiper.current.update();
+        }
+    }, [product.images]);
+
     return (
         <Container>
             <div className={styles.productDetail}>
-                <div className={styles.images}>
-                    <div className={styles.imagesBig}>
-                        <div className={styles.imageWrap}>
-                            <img
-                                src={mockImages[0].imageBig}
-                                title={tempName}
-                            />
-                        </div>
-                    </div>
+                {product.images && (
+                    <div className={styles.images}>
+                        <Swiper
+                            thumbs={{ swiper: thumbsSwiper.current }}
+                            modules={[Thumbs]}
+                            className={styles.imagesBig}
+                            onSlideChange={(swiper) => {
+                                setActiveThumbIndex(swiper.activeIndex);
+                            }}
+                        >
+                            {product.images?.map((image, index) => (
+                                <SwiperSlide
+                                    key={`big_${index}`}
+                                    className={styles.imageWrap}
+                                >
+                                    <img src={image} title={product.title} />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
 
-                    <div className={styles.imagesMin}>
-                        {mockImages.map(({ imageMin }, index) => (
-                            <div
-                                className={clsx([
-                                    styles.imageWrap,
-                                    index === 0 && styles.imagesWrapActive,
-                                ])}
-                                key={index}
-                            >
-                                <img src={imageMin} alt={tempName} />
-                            </div>
-                        ))}
+                        <Swiper
+                            modules={[Thumbs]}
+                            onSwiper={(swiper) => {
+                                thumbsSwiper.current = swiper;
+                            }}
+                            className={styles.imagesMin}
+                            slidesPerView={'auto'}
+                            spaceBetween={20}
+                        >
+                            {product.images?.map((image, index) => (
+                                <SwiperSlide
+                                    key={`min_${index}`}
+                                    className={clsx([
+                                        styles.imageWrap,
+                                        activeThumbIndex === index &&
+                                            styles.imagesWrapActive,
+                                    ])}
+                                >
+                                    <img src={image} title={product.title} />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
-                </div>
+                )}
 
                 <div className={styles.content}>
                     <Text
@@ -66,29 +92,26 @@ export function ProductDetail() {
                         size={'3xl'}
                         weight={'semibold'}
                     >
-                        Essence Mascara Lash Princess
+                        {product.title}
                     </Text>
                     <div className={styles.contentInner}>
                         <div className={styles.row}>
-                            <Rating value={4} />
+                            <Rating value={product.rating || 0} />
                             <Text size="m" className={styles.category}>
-                                electronics, selfie accessories
+                                {product.tags.join(', ')}
                             </Text>
                         </div>
                         <div className={styles.stock}>
                             <Text size="l" weight="medium" color="orange">
-                                In Stock - Only 5 left!
+                                In Stock - Only {product.stock} left!
                             </Text>
                         </div>
                         <Text className={styles.description} size="l">
-                            The Essence Mascara Lash Princess is a popular
-                            mascara known for its volumizing and lengthening
-                            effects. Achieve dramatic lashes with this
-                            long-lasting and cruelty-free formula.
+                            {product.description}
                         </Text>
                         <div className={styles.other}>
-                            <Text size="m">1 month warranty</Text>
-                            <Text size="m">Ships in 1 month</Text>
+                            <Text size="m">{product.warrantyInformation}</Text>
+                            <Text size="m">{product.shippingInformation}</Text>
                         </div>
                         <div className={styles.buy}>
                             <div className={styles.priceContent}>
@@ -99,7 +122,7 @@ export function ProductDetail() {
                                         weight="semibold"
                                         color="gray900"
                                     >
-                                        $7.17
+                                        ${price.toFixed(2)}
                                     </Text>
                                     <Text
                                         as="del"
@@ -107,19 +130,32 @@ export function ProductDetail() {
                                         weight="medium"
                                         color="gray600"
                                     >
-                                        $9.99
+                                        ${product.price}
                                     </Text>
                                 </div>
-                                <div className={styles.discountInfo}>
-                                    <Text as="span" size="m" color="gray900">
-                                        Your discount:
-                                    </Text>
-                                    <Text as="span" size="m" weight="semibold">
-                                        14.5%
-                                    </Text>
-                                </div>
+                                {product.discountPercentage && (
+                                    <div className={styles.discountInfo}>
+                                        <Text
+                                            as="span"
+                                            size="m"
+                                            color="gray900"
+                                        >
+                                            Your discount:
+                                        </Text>
+                                        <Text
+                                            as="span"
+                                            size="m"
+                                            weight="semibold"
+                                        >
+                                            {product.discountPercentage} %
+                                        </Text>
+                                    </div>
+                                )}
                             </div>
-                            <Button>Add to cart</Button>
+                            {isProductInCart && (
+                                <AddedControl initialCount={productInCart} />
+                            )}
+                            {!isProductInCart && <Button>Add to cart</Button>}
                         </div>
                     </div>
                 </div>
