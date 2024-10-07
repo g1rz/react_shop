@@ -1,10 +1,11 @@
-import { AddedControl } from '~/features/AddedControl';
+import React from 'react';
+import { AddedControl } from '../AddedControl/AddedControl';
 import styles from './CartItem.module.scss';
 import { AppLink, Button, Text } from '~/shared/ui';
 import { IconCart } from '~/shared/ui/Icons';
 import clsx from 'clsx';
 import { CartItemProps } from '../../model/types';
-import { useState } from 'react';
+import { useAddToCart } from '../../lib/useAddToCart';
 
 export function CartItem({
     id,
@@ -13,9 +14,9 @@ export function CartItem({
     price,
     quantity,
     discountPercentage,
+    isDeleted,
 }: CartItemProps) {
-    const [isDeleted, setIsDeleted] = useState(false);
-
+    const { addToCart, isLoading } = useAddToCart();
     const discountedPrice = discountPercentage
         ? (price - (price * discountPercentage) / 100).toFixed(2)
         : price;
@@ -44,14 +45,24 @@ export function CartItem({
             </div>
             <div className={styles.right}>
                 {isDeleted ? (
-                    <Button onlyIcon aria-label="add to cart product">
+                    <Button
+                        onlyIcon
+                        aria-label="add to cart product"
+                        disabled={isLoading}
+                        onClick={() =>
+                            addToCart({ productId: id, quantity: 1 })
+                        }
+                    >
                         <IconCart />
                     </Button>
                 ) : (
                     <>
-                        <AddedControl initialCount={quantity} />
+                        <AddedControl initialCount={quantity} productId={id} />
                         <AppLink
-                            onClick={() => setIsDeleted(true)}
+                            onClick={() =>
+                                addToCart({ productId: id, quantity: 0 })
+                            }
+                            disabled={isLoading}
                             className={styles.deleteLink}
                         >
                             Delete

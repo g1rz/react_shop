@@ -1,13 +1,34 @@
 import { Container, Text } from '~/shared/ui';
 import styles from './CartPage.module.scss';
-import { CartItem, selectCart } from '~/features/Cart';
+import { CartItem, CartItemProps, selectCart } from '~/features/Cart';
 import clsx from 'clsx';
 import { Helmet } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
 import { RootState } from '~/app/appStore';
+import { useEffect, useState } from 'react';
 
 export function CartPage() {
+    const [products, setProducts] = useState<CartItemProps[]>([]);
     const cart = useSelector((state: RootState) => selectCart(state));
+
+    useEffect(() => {
+        if (!products.length && cart) {
+            setProducts(cart?.products);
+        }
+        if (cart && products.length) {
+            const updatedProducts = products.map((product) => {
+                const isProductInCart = cart.products.find(
+                    (cartProduct) => cartProduct.id === product.id,
+                );
+                return {
+                    ...product,
+                    isDeleted: !isProductInCart,
+                    quantity: !isProductInCart ? 1 : product.quantity,
+                };
+            });
+            setProducts(updatedProducts);
+        }
+    }, [cart]);
 
     return (
         <>
@@ -25,10 +46,10 @@ export function CartPage() {
                         My cart
                     </Text>
 
-                    {cart && cart.products && (
+                    {cart && products && (
                         <div className={styles.grid}>
                             <div className={styles.productList}>
-                                {cart.products.map(
+                                {products.map(
                                     ({
                                         id,
                                         title,
@@ -36,6 +57,7 @@ export function CartPage() {
                                         price,
                                         quantity,
                                         discountPercentage,
+                                        isDeleted,
                                     }) => (
                                         <CartItem
                                             key={id}
@@ -47,6 +69,7 @@ export function CartPage() {
                                             discountPercentage={
                                                 discountPercentage
                                             }
+                                            isDeleted={isDeleted}
                                         />
                                     ),
                                 )}
@@ -73,7 +96,7 @@ export function CartPage() {
                                         weight="bold"
                                         color="gray900"
                                     >
-                                        ${cart.total}
+                                        ${cart.total.toFixed(2)}
                                     </Text>
                                 </div>
                                 <div
@@ -94,7 +117,7 @@ export function CartPage() {
                                         color="gray900"
                                         weight="bold"
                                     >
-                                        ${cart.discountedTotal}
+                                        ${cart.discountedTotal.toFixed(2)}
                                     </Text>
                                 </div>
                             </div>

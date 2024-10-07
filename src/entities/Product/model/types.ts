@@ -19,10 +19,13 @@ export type ProductCardProps = Product & {
     count?: number;
     isAdded?: boolean;
     initialCount?: number;
+    stock?: number;
     onCountChange?: (productId: number, count: number) => void;
     renderControl?: (props: {
-        initialCount: number | undefined;
-        onCountChange: (count: number) => void;
+        initialCount?: number;
+        productId: number;
+        maxCount?: number;
+        onCountChange?: (count: number) => void;
     }) => ReactNode;
 };
 
@@ -32,6 +35,7 @@ export type GetProducts = {
     search?: string;
     limit?: number;
     skip?: number;
+    total?: number;
 };
 
 export type GetProductsResponse = GetProducts & {

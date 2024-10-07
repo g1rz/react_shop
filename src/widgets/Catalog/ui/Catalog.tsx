@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce';
 
 import { Button, Container, TextField, Text, Skeleton } from '~/shared/ui';
 import { Product, ProductCard } from '~/entities/Product';
-import { AddedControl } from '~/features/AddedControl';
+import { AddedControl } from '~/features/Cart/';
 
 import styles from './Catalog.module.scss';
 import { useGetProductsQuery } from '~/entities/Product/';
@@ -39,13 +39,24 @@ export function Catalog() {
     );
 
     useEffect(() => {
-        console.log(data, error, isLoading);
+        return () => {
+            setAllProducts([]);
+        };
+    }, []);
+
+    useEffect(() => {
         if (data) {
             setAllProducts((prevProducts) => [
                 ...prevProducts,
                 ...data.products,
             ]);
-            setHasMore(allProducts.length + data.products.length < data.total);
+            if (data.total) {
+                setHasMore(
+                    allProducts.length + data.products.length < data.total,
+                );
+            } else {
+                setHasMore(false);
+            }
         }
     }, [data, error, isLoading]);
 
@@ -59,6 +70,10 @@ export function Catalog() {
             setSkip(skip + data.products.length);
         }
     };
+
+    useEffect(() => {
+        console.log(allProducts);
+    }, [allProducts]);
 
     return (
         <section className={styles.catalog} id="catalog">
@@ -75,7 +90,6 @@ export function Catalog() {
                     <TextField
                         value={search}
                         onChange={(e) => handleSearch(e.target.value)}
-                        // onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search by title"
                         className={styles.search}
                     />
@@ -85,7 +99,7 @@ export function Catalog() {
                             !error &&
                             data &&
                             allProducts.map(
-                                ({ id, thumbnail, title, price }) => {
+                                ({ id, thumbnail, title, price, stock }) => {
                                     return (
                                         <ProductCard
                                             key={id}
@@ -93,15 +107,19 @@ export function Catalog() {
                                             thumbnail={thumbnail}
                                             title={title}
                                             price={price}
+                                            stock={stock}
                                             renderControl={({
                                                 initialCount,
                                                 onCountChange,
+                                                maxCount,
                                             }) => (
                                                 <AddedControl
                                                     initialCount={initialCount}
+                                                    productId={id}
                                                     onCountChange={
                                                         onCountChange
                                                     }
+                                                    maxCount={maxCount}
                                                 />
                                             )}
                                         />

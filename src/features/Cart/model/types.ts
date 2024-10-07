@@ -6,6 +6,7 @@ export type CartItemProps = {
     discountPercentage: number;
     discountedTotal?: number;
     thumbnail: string;
+    isDeleted?: boolean;
 };
 
 export type CartProps = {
@@ -23,4 +24,8 @@ export type CartResponse = {
     total: number;
     skip: number;
     limit: number;
+};
+
+export type UpdateCartProps = {
+    products: { id: number; quantity: number }[];
 };

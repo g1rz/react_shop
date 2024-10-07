@@ -10,6 +10,8 @@ import { RootState } from '~/app/appStore';
 import { selectCartTotalQuantity } from '~/features/Cart';
 
 export function Header() {
+    const user = useSelector((state: RootState) => state.auth.user);
+
     const totalProductInCart = useSelector((state: RootState) =>
         selectCartTotalQuantity(state),
     );
@@ -47,7 +49,7 @@ export function Header() {
                             count={totalProductInCart}
                         />
                         <AppLink to="/" type={'white'}>
-                            Johnson Smith
+                            {user?.firstName + ' ' + user?.lastName}
                         </AppLink>
                     </nav>
                 </div>

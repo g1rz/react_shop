@@ -8,6 +8,7 @@ import { RootState } from '~/app/appStore';
 import {
     selectIsProductInCart,
     selectProductCountInCart,
+    useAddToCart,
 } from '~/features/Cart';
 
 export function ProductCard({
@@ -16,13 +17,10 @@ export function ProductCard({
     title,
     price,
     renderControl,
-    onCountChange,
+    stock,
 }: ProductCardProps) {
-    const handleCountChange = (count: number) => {
-        if (onCountChange) {
-            onCountChange(id, count);
-        }
-    };
+    const { addToCart, isLoading } = useAddToCart();
+
     const isAdded = useSelector((state: RootState) =>
         selectIsProductInCart(state, id),
     );
@@ -53,10 +51,18 @@ export function ProductCard({
                         renderControl &&
                         renderControl({
                             initialCount,
-                            onCountChange: handleCountChange,
+                            productId: id,
+                            maxCount: stock,
                         })
                     ) : (
-                        <Button onlyIcon aria-label="add to cart product">
+                        <Button
+                            onlyIcon
+                            aria-label="add to cart product"
+                            disabled={isLoading}
+                            onClick={() =>
+                                addToCart({ productId: id, quantity: 1 })
+                            }
+                        >
                             <IconCart />
                         </Button>
                     )}

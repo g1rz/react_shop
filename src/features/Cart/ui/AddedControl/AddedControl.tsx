@@ -1,3 +1,4 @@
+import React from 'react';
 import clsx from 'clsx';
 import { useState } from 'react';
 import { Button, Text } from '~/shared/ui';
@@ -5,7 +6,10 @@ import { Button, Text } from '~/shared/ui';
 import styles from './AddedControl.module.scss';
 import { IconMinus, IconPlus } from '~/shared/ui/Icons';
 
+import { useAddToCart } from '../../lib/useAddToCart';
+
 type Props = {
+    productId: number;
     initialCount?: number;
     onCountChange?: (count: number) => void;
     className?: string;
@@ -14,6 +18,7 @@ type Props = {
 };
 
 export function AddedControl({
+    productId,
     initialCount = 0,
     onCountChange,
     className,
@@ -21,11 +26,13 @@ export function AddedControl({
     maxCount = 10,
 }: Props) {
     const [count, setCount] = useState(initialCount);
+    const { addToCart, isLoading } = useAddToCart();
 
     const handleIncrement = () => {
         if (count < maxCount) {
             const newCount = count + 1;
             setCount(newCount);
+            addToCart({ productId, quantity: newCount });
             if (onCountChange) {
                 onCountChange(newCount);
             }
@@ -36,6 +43,7 @@ export function AddedControl({
         if (count > minCount) {
             const newCount = count - 1;
             setCount(newCount);
+            addToCart({ productId, quantity: newCount });
             if (onCountChange) {
                 onCountChange(newCount);
             }
@@ -47,7 +55,7 @@ export function AddedControl({
             <Button
                 onClick={handleDecrement}
                 onlyIcon
-                disabled={count <= minCount}
+                disabled={count <= minCount || isLoading}
                 aria-label="minus product"
             >
                 <IconMinus />
@@ -58,7 +66,7 @@ export function AddedControl({
             <Button
                 onClick={handleIncrement}
                 onlyIcon
-                disabled={count >= maxCount}
+                disabled={count >= maxCount || isLoading}
                 aria-label="plus product"
             >
                 <IconPlus />

@@ -1,8 +1,15 @@
 export { CartItem } from './ui/CartItem/CartItem';
+export { AddedControl } from './ui/AddedControl/AddedControl';
 export { type CartItemProps, type CartResponse } from './model/types';
 export { default as cartReducer } from './model/cartSlice';
-export { selectCart } from './model/cartSlice';
-export { selectCartTotalQuantity } from './model/cartSlice';
-export { selectIsProductInCart } from './model/cartSlice';
-export { fetchCart } from './model/cartSlice';
-export { selectProductCountInCart } from './model/cartSlice';
+
+export {
+    selectCart,
+    selectCartTotalQuantity,
+    selectCartProducts,
+    selectIsProductInCart,
+    selectProductCountInCart,
+} from './model/cartSlice';
+
+export { fetchCart, updateCart } from './model/cartSlice';
+export { useAddToCart } from './lib/useAddToCart';

@@ -1,3 +1,4 @@
+import React from 'react';
 import clsx from 'clsx';
 import styles from './Text.module.scss';
 import { ElementType, ReactNode } from 'react';

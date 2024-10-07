@@ -17,4 +17,9 @@
     &:focus {
         border-color: var(--color-gray-600);
     }
+
+    &[type='password'] {
+        -webkit-text-security: disc;
+        text-security: disc;
+    }
 }
